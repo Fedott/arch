@@ -1,0 +1,44 @@
+diff --git a/app/mainwindow.h b/app/mainwindow.h
+--- a/app/mainwindow.h
++++ b/app/mainwindow.h
+@@ -118,7 +118,7 @@
+         void increaseWindowHeight();
+         void decreaseWindowHeight();
+ 
+-        void wmActiveWindowChanged();
++        void wmActiveWindowChanged(WId wid);
+ 
+         void xshapeOpenWindow();
+         void xshapeRetractWindow();
+diff --git a/app/mainwindow.cpp b/app/mainwindow.cpp
+--- a/app/mainwindow.cpp
++++ b/app/mainwindow.cpp
+@@ -1019,7 +1019,7 @@
+     }
+ }
+ 
+-void MainWindow::wmActiveWindowChanged()
++void MainWindow::wmActiveWindowChanged(WId wid)
+ {
+     if (m_toggleLock) {
+         m_toggleLock = false;
+@@ -1037,6 +1037,18 @@
+         if (!Settings::keepOpen() && isVisible() && KWindowSystem::activeWindow() != winId()) {
+             toggleWindowState();
+         }
++    } else if (m_isWayland) {
++        if (Settings::keepOpen())
++            return;
++
++        const auto wh = windowHandle();
++        if (wh == nullptr) {
++            return;
++        }
++
++        if (isVisible() && wid == 0 && wh->isActive()) {
++            toggleWindowState();
++        }
+     } else {
+         if (!Settings::keepOpen() && hasFocus()) {
+             toggleWindowState();
+
