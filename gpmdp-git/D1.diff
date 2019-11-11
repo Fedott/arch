@@ -1,0 +1,11 @@
+--- package.json	2019-11-09 12:05:04.332603154 +0300
++++ package.json	2019-11-09 12:41:22.806196130 +0300
+@@ -166,7 +166,7 @@
+     "electron-media-service": "^0.2.2",
+     "ll-keyboard-hook-win": "^3.0.0",
+     "mouse-forward-back": "^1.0.1",
+-    "mpris-service": "^2.1.0"
++    "mpris-service": "GPMDP/mpris-service"
+   },
+   "babel": {
+     "presets": [
